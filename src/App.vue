@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    Hello World!
+    Hello F1Rennfreunde!
   </div>
 </template>
 
