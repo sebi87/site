@@ -1,5 +1,6 @@
 <template>
-  <div class="b-overlay" :class="isOpen ? 'b-overlay-isOpen' : ''">
+  <div class="b-overlay" :class="iternalIsOpen ? 'b-overlay-isOpen' : ''">
+
     OVERLAY FÜR ANMELDUNG
     <br>
     <br>
@@ -7,7 +8,7 @@
     [WIP]
     <div></div>
     <div></div>
-    <div class="b-overlay-cta"><b-btn>Absenden!</b-btn></div>
+    <div class="b-overlay-cta"><b-btn @click="close">Absenden!</b-btn></div>
   </div>
 </template>
 
@@ -16,8 +17,25 @@ import BBtn from "@/components/base/btn/BBtn";
 export default {
   name: "BOverlay",
   components: {BBtn},
+  data: () => ({
+    iternalIsOpen: false
+  }),
   props: {
-    isOpen: Boolean
+    value: Boolean
+  },
+  watch: {
+    value: {
+      immediate: true,
+      handler: function (val) {
+        this.iternalIsOpen = val
+      }
+    }
+  },
+  methods: {
+    close() {
+      this.iternalIsOpen = false
+      this.$emit('input', false)
+    }
   }
 }
 </script>
@@ -32,7 +50,7 @@ export default {
   transform: translateY(90vh);
   transition: 250ms ease-in transform;
 
-  padding: 48px;
+  padding: 48px 48px 48px 48px;
   border-top-right-radius: 32px;
   border-top-left-radius: 32px;
   box-shadow: 0px -10px 20px rgba(0,0,0, 0.2);

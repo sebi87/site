@@ -11,7 +11,7 @@
 
 
     </div>
-    <b-overlay :is-open="overlayIsOpen"></b-overlay>
+    <b-overlay v-model="overlayIsOpen"></b-overlay>
   </div>
 </template>
 
