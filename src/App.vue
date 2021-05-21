@@ -58,7 +58,7 @@ export default {
 }
 
 #app h1 {
-  font-size: 48px;
+  font-size: 52px;
   font-weight: 800;
   margin: 32px 0 0 0;
   text-align: center;

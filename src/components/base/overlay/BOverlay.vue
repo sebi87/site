@@ -8,7 +8,7 @@
     [WIP]
     <div></div>
     <div></div>
-    <div class="b-overlay-cta"><b-btn @click="close">Absenden!</b-btn></div>
+    <div class="b-overlay-cta"><b-btn submit @click="close">Absenden!</b-btn></div>
   </div>
 </template>
 
