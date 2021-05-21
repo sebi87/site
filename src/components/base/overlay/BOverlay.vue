@@ -25,7 +25,7 @@ export default {
 <style scoped>
 .b-overlay {
   position: absolute;
-  height: 90vh;
+  height: 76vh;
   width: 100vw;
   bottom: 0;
   left: 0;
