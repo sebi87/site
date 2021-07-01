@@ -2,11 +2,11 @@
   <div id="app">
     <div>
       <b-image src="logo-rennfreunde.png" alt="logo-rennfreunde" height="100px"/>
-      <h1>7 Ligen<br>160 Fahrer</h1>
-      <h3>F1 Rennfreunde</h3>
-      <p>Du zockst gerne F1 auf der PS4/5? Du hast Lust dich mit anderen Fahrern zu messen? Du willst dein Team nach vorne bringen und möglichst viele Punkte sammeln? Dann bewirb dich bei der geilsten Community im Netz!</p>
+      <h1>{{ content.title }}</h1>
+      <h3>{{ content.subtitle }}</h3>
+      <p>{{ content.paragraph }}</p>
       <div class="ctas">
-        <b-btn @click="openFlyOut">Mitmachen!</b-btn>
+        <b-btn @click="openFlyOut">{{ content.cta }}</b-btn>
       </div>
 
 
@@ -27,12 +27,16 @@ export default {
   components: {BOverlay, BBtn, BInput, BImage},
   data: () => ({
     input: '',
-    overlayIsOpen: false
+    overlayIsOpen: false,
+    content: {}
   }),
   methods: {
     openFlyOut() {
       this.overlayIsOpen = true
     }
+  },
+  mounted() {
+    import('@/assets/content').then(v => this.content = v.getHome())
   }
 }
 </script>
