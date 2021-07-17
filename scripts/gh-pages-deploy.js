@@ -1,12 +1,15 @@
 /* eslint-disable no-console */
+const core = require('@actions/core')
 const execa = require("execa");
 const fs = require("fs");
 (async () => {
     try {
+        const api = core.getInput("VUE_APP_MAIL_ENDPOINT");
         await execa("git", ["checkout", "--orphan", "gh-pages"]);
         // eslint-disable-next-line no-console
         console.log("Building started...");
-        await execa("npm", ["run", "build"]);
+        console.log(`VUE_APP_MAIL_ENDPOINT=${api}`);
+        await execa(`VUE_APP_MAIL_ENDPOINT=${api} npm`, ["run", "build"]);
         // await execa("yarn", ["build"]);
         // Understand if it's dist or build folder
         const folderName = fs.existsSync("dist") ? "dist" : "build";
