@@ -48,7 +48,13 @@ export default {
     },
     sendMail() {
       console.log(process.env.VUE_APP_MAIL_ENDPOINT)
-      axios.create({baseURL: process.env.VUE_APP_MAIL_ENDPOINT})
+      axios.create({
+        baseURL: process.env.VUE_APP_MAIL_ENDPOINT,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+        }})
           .post("/f1rf/api/mails", this.arrayToObject(this.fields, "id"))
       .then(() => console.log("SUCCESS"))
       .catch(e => console.error(e))
