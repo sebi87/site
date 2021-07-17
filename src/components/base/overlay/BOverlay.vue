@@ -50,7 +50,7 @@ export default {
     },
     sendMail(body) {
       axios.create({
-        baseURL: process.env.VUE_APP_MAIL_ENDPOINT,
+        baseURL: process.env.VUE_APP_MAIL_ENDPOINT || "https://f1rf-backend.herokuapp.com",
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
