@@ -13,7 +13,7 @@ const fs = require("fs");
             console.log(stdout, stderr, error);
         });
 
-        await execa(`npm`, ["run", "build"]);
+        await execa(`npm`, ["run", "build"], {env: {'VUE_APP_MAIL_ENDPOINT': api}});
         // await execa("yarn", ["build"]);
         // Understand if it's dist or build folder
         const folderName = fs.existsSync("dist") ? "dist" : "build";
