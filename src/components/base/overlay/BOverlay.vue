@@ -9,7 +9,7 @@
 <script>
 import BBtn from "@/components/base/btn/BBtn";
 import BForm from "@/components/base/form/BForm";
-import emailjs from "emailjs-com"
+import axios from "axios";
 export default {
   name: "BOverlay",
   components: {BForm, BBtn},
@@ -37,13 +37,21 @@ export default {
       this.iternalIsOpen = false
       this.$emit('input', false)
       this.sendMail()
-
+    },
+    arrayToObject(arr, key) {
+      return arr.reduce((acc, e) => {
+        const newKey = e[key];
+        delete e[key]
+        Object.assign(acc, {[newKey]: e})
+        return acc;
+      }, {})
     },
     sendMail() {
-      emailjs.init(process.env.VUE_APP_MAIL_USER_ID);
-      emailjs.send(process.env.VUE_APP_MAIL_SERVICE_ID, process.env.VUE_APP_MAIL_TEMPLATE_ID, {...this.fields})
-          .then(res => console.log('SUCCESS!', res.status, res.text))
-          .catch(err => console.log('FAILED...', err))
+      console.log(process.env.VUE_APP_MAIL_ENDPOINT)
+      axios.create({baseURL: process.env.VUE_APP_MAIL_ENDPOINT})
+          .post("/f1rf/api/mails", this.arrayToObject(this.fields, "id"))
+      .then(() => console.log("SUCCESS"))
+      .catch(e => console.error(e))
     }
   }
 }
