@@ -8,6 +8,11 @@ const fs = require("fs");
         // eslint-disable-next-line no-console
         console.log("Building started...");
         console.log(`VUE_APP_MAIL_ENDPOINT=${api}`);
+        execa('echo $VUE_APP_MAIL_ENDPOINT', {env: {'VUE_APP_MAIL_ENDPOINT': `${api}`}}, function (error, stdout, stderr)
+        {
+            console.log(stdout, stderr, error);
+        });
+
         await execa(`VUE_APP_MAIL_ENDPOINT=${api} npm`, ["run", "build"]);
         // await execa("yarn", ["build"]);
         // Understand if it's dist or build folder
