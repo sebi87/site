@@ -18,3 +18,5 @@ jobs:
         run: git config user.name "<username>" && git config user.email "<email>"
       - name: Deploy
         run: npm run deploy
+        with:
+          VUE_APP_MAIL_ENDPOINT: ${{ secrets.VUE_APP_MAIL_ENDPOINT }}
