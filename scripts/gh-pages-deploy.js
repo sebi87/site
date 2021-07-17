@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
-const core = require('@actions/core')
 const execa = require("execa");
 const fs = require("fs");
 (async () => {
     try {
-        const api = core.getInput("VUE_APP_MAIL_ENDPOINT");
+        const api = process.env.VUE_APP_MAIL_ENDPOINT;
         await execa("git", ["checkout", "--orphan", "gh-pages"]);
         // eslint-disable-next-line no-console
         console.log("Building started...");
