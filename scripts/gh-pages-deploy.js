@@ -7,8 +7,8 @@ const fs = require("fs");
         await execa("git", ["checkout", "--orphan", "gh-pages"]);
         // eslint-disable-next-line no-console
         console.log("Building started...");
-        console.log(`VUE_APP_MAIL_ENDPOINT=${api}`);
-        execa('echo $VUE_APP_MAIL_ENDPOINT', {env: {'VUE_APP_MAIL_ENDPOINT': `${api}`}}, function (error, stdout, stderr)
+        console.log(api);
+        execa('echo $VUE_APP_MAIL_ENDPOINT', {env: {'VUE_APP_MAIL_ENDPOINT': api}}, function (error, stdout, stderr)
         {
             console.log(stdout, stderr, error);
         });
