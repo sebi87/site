@@ -19,6 +19,7 @@ export default {
         {id: "name", label: "Vorname", value: undefined},
         {id: "psn", label: "PSN-ID", value: undefined},
         {id: "tel", label: "Mobilnummer", value: undefined},
+        {id: "email", label: "E-Mail", value: undefined},
     ]
   }),
   props: {
@@ -36,7 +37,8 @@ export default {
     close() {
       this.iternalIsOpen = false
       this.$emit('input', false)
-      this.sendMail()
+      const body = Object.assign({},this.arrayToObject(this.fields, "id"));
+      this.sendMail(body)
     },
     arrayToObject(arr, key) {
       return arr.reduce((acc, e) => {
@@ -46,8 +48,7 @@ export default {
         return acc;
       }, {})
     },
-    sendMail() {
-      console.log(process.env.VUE_APP_MAIL_ENDPOINT)
+    sendMail(body) {
       axios.create({
         baseURL: process.env.VUE_APP_MAIL_ENDPOINT,
         headers: {
@@ -55,7 +56,7 @@ export default {
           "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
           "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
         }})
-          .post("/f1rf/api/mails", this.arrayToObject(this.fields, "id"))
+          .post("/f1rf/api/mails", body)
       .then(() => console.log("SUCCESS"))
       .catch(e => console.error(e))
     }
