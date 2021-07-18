@@ -23,7 +23,8 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "execa": "^5.0.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "dotenv": "^10.0.0"
   },
   "eslintConfig": {
     "root": true,
