@@ -21,7 +21,9 @@ jobs:
       - name: create env file
         run: |
           touch .env
-          echo VUE_APP_MAIL_ENDPOINT =${{ secrets.VUE_APP_MAIL_ENDPOINT }} >> .env
+          echo VUE_APP_MAIL_ENDPOINT=${{ secrets.VUE_APP_MAIL_ENDPOINT }} >> .env
+          echo ${{ secrets.VUE_APP_MAIL_ENDPOINT }}
+          echo VUE_APP_MAIL_ENDPOINT
         env:
           VUE_APP_MAIL_ENDPOINT: ${{ secrets.VUE_APP_MAIL_ENDPOINT }}
       - name: Deploy
