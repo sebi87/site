@@ -83,10 +83,6 @@ export default {
   margin: 48px 0;
 }
 
-.ctas {
-  padding-top: 52px;
-}
-
 html, body {
   margin: 0;
   padding: 0;
