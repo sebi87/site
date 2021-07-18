@@ -14,7 +14,6 @@ export default {
   data: () => ({
     classes: {'b-btn': true, 'send': false},
     duration: 300,
-
   }),
   props: {
     width: String,
@@ -30,15 +29,11 @@ export default {
   },
   methods: {
     onClick() {
-      console.log('clicked')
       this.transition(true)
         .then(() => delay(this.duration))
         .then(() => this.$emit('click'))
         .then(() => delay(this.duration))
         .then(() => this.transition(false))
-
-      // Object.assign(this.classes, {'send': true})
-      // this.$emit('click')
     },
     async transition(val) {
       return await this.submit ? Object.assign(this.classes, {'send': val}) : undefined

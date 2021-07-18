@@ -5,7 +5,6 @@
       <h1>{{ content.title }}</h1>
       <h3>{{ content.subtitle }}</h3>
       <p>{{ content.paragraph }}</p>
-      <p>api url: {{ api }}</p>
       <div class="ctas">
         <b-btn @click="openFlyOut">{{ content.cta }}</b-btn>
       </div>
@@ -39,9 +38,6 @@ export default {
   mounted() {
     import('@/assets/content').then(v => this.content = v.getHome())
   },
-  computed: {
-    api() {return process.env.VUE_APP_MAIL_ENDPOINT}
-  }
 }
 </script>
 

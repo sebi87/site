@@ -1,7 +1,7 @@
 <template>
-  <div class="b-overlay" :class="iternalIsOpen ? 'b-overlay-isOpen' : ''">
+  <div v-click-outside="close" class="b-overlay" :class="iternalIsOpen ? 'b-overlay-isOpen' : ''">
       <b-form class="b-overlay-cta" :fields="fields">
-        <b-btn slot="submit" submit @click="close">Absenden!</b-btn>
+        <b-btn slot="submit" submit @click="submit">Absenden!</b-btn>
       </b-form>
   </div>
 </template>
@@ -10,6 +10,7 @@
 import BBtn from "@/components/base/btn/BBtn";
 import BForm from "@/components/base/form/BForm";
 import axios from "axios";
+import ClickOutside from 'vue-click-outside'
 export default {
   name: "BOverlay",
   components: {BForm, BBtn},
@@ -22,6 +23,13 @@ export default {
         {id: "email", label: "E-Mail", value: undefined},
     ]
   }),
+  directives: {
+    ClickOutside
+  },
+  mounted () {
+    // prevent click outside event with popupItem.
+    this.popupItem = this.$el
+  },
   props: {
     value: Boolean
   },
@@ -37,6 +45,9 @@ export default {
     close() {
       this.iternalIsOpen = false
       this.$emit('input', false)
+    },
+    submit() {
+      this.close()
       const body = Object.assign({},this.arrayToObject(this.fields, "id"));
       this.sendMail(body)
     },
@@ -57,8 +68,8 @@ export default {
           "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
         }})
           .post("/f1rf/api/mails", body)
-      .then(() => console.log("SUCCESS"))
-      .catch(e => console.error(e))
+      .then(() => {})
+      .catch(() => {})
     }
   }
 }
@@ -73,6 +84,7 @@ export default {
   left: 0;
   transform: translateY(90vh);
   transition: 250ms ease-in transform;
+  opacity: 0;
 
   padding: 48px 48px 48px 48px;
   border-top-right-radius: 32px;
@@ -91,6 +103,7 @@ export default {
 }
 
 .b-overlay-isOpen {
+  opacity: 1;
   transform: translateY(0vh);
   transition: 0.3s ease-out transform;
 }
