@@ -29,4 +29,5 @@ jobs:
           ls -a
           env
           npm run deploy
-
+        env:
+          VUE_APP_MAIL_ENDPOINT: ${{ secrets.VUE_APP_MAIL_ENDPOINT }}
