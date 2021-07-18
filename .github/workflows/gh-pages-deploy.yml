@@ -21,8 +21,12 @@ jobs:
           touch .env
           echo VUE_APP_MAIL_ENDPOINT="$VUE_APP_MAIL_ENDPOINT" >> .env
           ls -la
+          env
         env:
           VUE_APP_MAIL_ENDPOINT: ${{ secrets.VUE_APP_MAIL_ENDPOINT }}
       - name: Deploy
-        run: npm run deploy
+        run: |
+          ls -a
+          env
+          npm run deploy
 
