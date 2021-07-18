@@ -7,12 +7,7 @@ const fs = require("fs");
         await execa("git", ["checkout", "--orphan", "gh-pages"]);
         // eslint-disable-next-line no-console
         console.log("Building started...");
-        console.log(api);
-        execa('echo $VUE_APP_MAIL_ENDPOINT', {env: {'VUE_APP_MAIL_ENDPOINT': api}}, function (error, stdout, stderr)
-        {
-            console.log(stdout, stderr, error);
-        });
-
+        console.log(JSON.stringify(process.env));
         await execa(`npm`, ["run", "build"], {env: {'VUE_APP_MAIL_ENDPOINT': api}});
         // await execa("yarn", ["build"]);
         // Understand if it's dist or build folder

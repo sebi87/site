@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - main
-env:
-  VUE_APP_MAIL_ENDPOINT: ${{ secrets.VUE_APP_MAIL_ENDPOINT }}
 jobs:
   gh-pages-deploy:
     name: Deploying to Github Pages
@@ -27,6 +25,4 @@ jobs:
           VUE_APP_MAIL_ENDPOINT: ${{ secrets.VUE_APP_MAIL_ENDPOINT }}
       - name: Deploy
         run: npm run deploy
-        env:
-          VUE_APP_MAIL_ENDPOINT: ${{ secrets.VUE_APP_MAIL_ENDPOINT }}
 
