@@ -6,6 +6,7 @@
         :key="field.id"
         :id="field.id"
         :label="field.label"
+        :validation-message="field.validationMessage"
         v-model="field.value"></b-input>
   </div>
   <slot name="submit"></slot>

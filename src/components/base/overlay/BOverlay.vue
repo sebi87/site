@@ -11,17 +11,13 @@ import BBtn from "@/components/base/btn/BBtn";
 import BForm from "@/components/base/form/BForm";
 import axios from "axios";
 import ClickOutside from 'vue-click-outside'
+import {validator} from "@/assets/content";
 export default {
   name: "BOverlay",
   components: {BForm, BBtn},
   data: () => ({
     iternalIsOpen: false,
-    fields: [
-        {id: "name", label: "Vorname", value: undefined},
-        {id: "psn", label: "PSN-ID", value: undefined},
-        {id: "tel", label: "Mobilnummer", value: undefined},
-        {id: "email", label: "E-Mail", value: undefined},
-    ]
+    fields: []
   }),
   directives: {
     ClickOutside
@@ -29,6 +25,7 @@ export default {
   mounted () {
     // prevent click outside event with popupItem.
     this.popupItem = this.$el
+    import('@/assets/content').then(v => this.fields = v.getForm())
   },
   props: {
     value: Boolean
@@ -47,9 +44,12 @@ export default {
       this.$emit('input', false)
     },
     submit() {
-      this.close()
       const body = Object.assign({},this.arrayToObject(this.fields, "id"));
-      this.sendMail(body)
+      if (this.sendMail(body)) {
+        this.close()
+      } else {
+        this.$forceUpdate()
+      }
     },
     arrayToObject(arr, key) {
       return arr.reduce((acc, e) => {
@@ -60,16 +60,27 @@ export default {
       }, {})
     },
     sendMail(body) {
-      axios.create({
-        baseURL: "https://f1rf-backend.herokuapp.com",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
-        }})
-          .post("/f1rf/api/mails", body)
-      .then(() => {})
-      .catch(() => {})
+      const url = process.env.VUE_APP_MAIL_ENDPOINT ?? "https://f1rf-backend.herokuapp.com";
+      const isValidationError = this.fields
+          .map(f => validator(f))
+          .some(v => {
+            return !!v?.validationMessage
+          });
+      if (!isValidationError) {
+        axios.create({
+          baseURL: url,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+          }})
+            .post("/f1rf/api/mails", body)
+            .then(() => {})
+            .catch(() => {})
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 }

@@ -1,15 +1,18 @@
 <template>
   <div id="app">
-    <div>
-      <b-image src="logo-rennfreunde.png" alt="logo-rennfreunde" height="100px"/>
-      <h1>{{ content.title }}</h1>
-      <h3>{{ content.subtitle }}</h3>
-      <p>{{ content.paragraph }}</p>
-      <div class="ctas">
-        <b-btn @click="openFlyOut">{{ content.cta }}</b-btn>
+    <p class="imprint" @click="openImprint">Impressum</p>
+    <div class="container">
+      <div>
+        <b-image src="logo-rennfreunde.png" alt="logo-rennfreunde" height="100px"/>
+        <h1>{{ content.title }}</h1>
+        <h3>{{ content.subtitle }}</h3>
+        <p>{{ content.paragraph }}</p>
+        <div class="ctas">
+          <b-btn @click="openFlyOut">{{ content.cta }}</b-btn>
+        </div>
+
+
       </div>
-
-
     </div>
     <b-overlay v-model="overlayIsOpen"></b-overlay>
   </div>
@@ -33,6 +36,8 @@ export default {
   methods: {
     openFlyOut() {
       this.overlayIsOpen = true
+    },
+    openImprint() {
     }
   },
   mounted() {
@@ -44,6 +49,7 @@ export default {
 <style>
 :root{
   --primary-color: rgb(241, 161, 83);
+  --error-color: rgb(241, 83, 83);
   --primary-color-lighten: rgb(252, 205, 165);
 }
 
@@ -55,11 +61,18 @@ export default {
   text-align: center;
   color: hsl(0, 0%, 100%);
   margin: 0;
-  padding: 48px 40px;
   height: 100%;
   width: 100%;
   background-color: rgba(45,45,45,0.95);
 }
+#app .container {
+  padding: 48px 40px;
+}
+
+#app .container p {
+  margin: 48px 0;
+}
+
 
 #app h1 {
   font-size: 52px;
@@ -80,7 +93,6 @@ export default {
   font-weight: normal;
   line-height: 1.72;
   color: #fff;
-  margin: 48px 0;
 }
 
 html, body {
@@ -98,5 +110,12 @@ html, body, #app {
 }
 *::before, *::after, * {
   box-sizing: border-box;
+}
+
+p.imprint{
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  cursor: pointer;
 }
 </style>

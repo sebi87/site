@@ -3,8 +3,9 @@
     <input :id="id"
            v-model="internalValue"
            @focusin="setActive(true)"
-           @focusout="setActive(false)">
-    <label :for="id">{{ label }}</label>
+           @focusout="setActive(false)"
+    >
+    <span><label :for="id">{{ label }}</label>{{validationMessage}}</span>
   </div>
 </template>
 
@@ -19,7 +20,8 @@ export default {
   }),
   props: {
     id: String,
-    label: String
+    label: String,
+    validationMessage: String
   },
   methods: {
     setActive(val) {
@@ -30,7 +32,8 @@ export default {
     styles() {
       return {
         active: this.active,
-        filled: this.active || this.internalValue !== ''
+        filled: this.active || this.internalValue !== '',
+        error: this.validationMessage
       }
     }
   }
@@ -66,8 +69,12 @@ input {
 
   /*border: 1px solid greenyellow;*/
 }
+.b-input-wrapper.error {
+  border-bottom: 1px solid var(--error-color);
+}
 
-.b-input-wrapper.filled label {
+.b-input-wrapper.filled label,
+.b-input-wrapper.filled span {
   font-size: 12px;
   top: 0;
   transition: 325ms all ease;
@@ -76,10 +83,14 @@ input {
   color: var(--primary-color);
   border-bottom: 1px solid var(--primary-color);
 }
-.b-input-wrapper label {
+/*.b-input-wrapper label,*/
+.b-input-wrapper span {
   position: absolute;
   top: 20px;
   left: 2px;
   transition: 325ms all ease;
+}
+.b-input-wrapper.error span {
+  color: var(--error-color);
 }
 </style>
